@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/End-to-end-Youtube-Sentiment/notebooks/mlruns/0/39dc712ad8074a0582c509996e360bbe/artifacts
+end_time: 1774255188117
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 39dc712ad8074a0582c509996e360bbe
+run_name: RandomForest_Baseline_TrainTestSplit
+run_uuid: 39dc712ad8074a0582c509996e360bbe
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1774255099867
+status: 4
+tags: []
+user_id: '91903'

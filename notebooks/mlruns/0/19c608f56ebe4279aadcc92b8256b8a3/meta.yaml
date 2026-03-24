@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/End-to-end-Youtube-Sentiment/notebooks/mlruns/0/19c608f56ebe4279aadcc92b8256b8a3/artifacts
+end_time: 1774258446906
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 19c608f56ebe4279aadcc92b8256b8a3
+run_name: Imbalance_oversampling_RandomForest_TFIDF_Trigrams
+run_uuid: 19c608f56ebe4279aadcc92b8256b8a3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1774258431285
+status: 3
+tags: []
+user_id: '91903'

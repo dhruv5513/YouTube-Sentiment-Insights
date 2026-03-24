@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/End-to-end-Youtube-Sentiment/mlruns/0/ecb8894401064039b3c4dc4483c34fca/artifacts
+end_time: 1774351253625
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ecb8894401064039b3c4dc4483c34fca
+run_name: judicious-shrike-112
+run_uuid: ecb8894401064039b3c4dc4483c34fca
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1774351244213
+status: 3
+tags: []
+user_id: '91903'

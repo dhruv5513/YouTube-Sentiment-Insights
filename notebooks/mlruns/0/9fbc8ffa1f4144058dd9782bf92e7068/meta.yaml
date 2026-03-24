@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/End-to-end-Youtube-Sentiment/notebooks/mlruns/0/9fbc8ffa1f4144058dd9782bf92e7068/artifacts
+end_time: 1774258556188
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 9fbc8ffa1f4144058dd9782bf92e7068
+run_name: Imbalance_smote_enn_RandomForest_TFIDF_Trigrams
+run_uuid: 9fbc8ffa1f4144058dd9782bf92e7068
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1774258545067
+status: 3
+tags: []
+user_id: '91903'

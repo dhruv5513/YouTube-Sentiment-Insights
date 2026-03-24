@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/End-to-end-Youtube-Sentiment/notebooks/mlruns/0/a61808bdcbae4139a3f40d1b2cd32e09/artifacts
+end_time: 1774257707889
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a61808bdcbae4139a3f40d1b2cd32e09
+run_name: TF-IDF_(1, 2)_RandomForest
+run_uuid: a61808bdcbae4139a3f40d1b2cd32e09
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1774257698022
+status: 3
+tags: []
+user_id: '91903'

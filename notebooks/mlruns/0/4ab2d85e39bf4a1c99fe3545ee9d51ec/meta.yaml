@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/End-to-end-Youtube-Sentiment/notebooks/mlruns/0/4ab2d85e39bf4a1c99fe3545ee9d51ec/artifacts
+end_time: 1774293141940
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 4ab2d85e39bf4a1c99fe3545ee9d51ec
+run_name: Trial_57_LightGBM_SMOTE_TFIDF_Trigrams
+run_uuid: 4ab2d85e39bf4a1c99fe3545ee9d51ec
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1774293051406
+status: 3
+tags: []
+user_id: '91903'

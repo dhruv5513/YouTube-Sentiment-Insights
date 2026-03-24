@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/End-to-end-Youtube-Sentiment/notebooks/mlruns/0/35723bf0812345f4affba28557a185ce/artifacts
+end_time: 1774258483530
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 35723bf0812345f4affba28557a185ce
+run_name: Imbalance_adasyn_RandomForest_TFIDF_Trigrams
+run_uuid: 35723bf0812345f4affba28557a185ce
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1774258471141
+status: 3
+tags: []
+user_id: '91903'
