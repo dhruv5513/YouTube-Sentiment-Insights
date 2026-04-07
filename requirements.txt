@@ -14,4 +14,3 @@ gunicorn
 python-dotenv
 scikit-learn==1.2.2
 requests
-python==3.10.13
