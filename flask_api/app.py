@@ -346,10 +346,6 @@ def get_comments():
     response = requests.get(url)
     return jsonify(response.json())
 
-@app.route('/')
-def home():
-    return "working"
-
 @app.route('/test')
 def test():
     return "test working"
