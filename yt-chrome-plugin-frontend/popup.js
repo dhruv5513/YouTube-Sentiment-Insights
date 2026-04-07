@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const outputDiv = document.getElementById("output");
-  const API_URL = 'http://localhost:5000/';
+  const API_URL = "https://youtube-sentiment-insights-1.onrender.com";
   // const API_URL = 'http://23.20.221.231:8080/';
   // Get the current tab's URL
   chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let pageToken = "";
     try {
       while (comments.length < 500) {
-        const response = await fetch(`http://127.0.0.1:5000/get_comments`, {
+        const response = await fetch(`https://youtube-sentiment-insights-1.onrender.com/get_comments`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"

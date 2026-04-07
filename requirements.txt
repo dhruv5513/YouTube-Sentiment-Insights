@@ -12,5 +12,5 @@ seaborn==0.13.2
 -e .
 gunicorn
 python-dotenv
-scikit-learn
+scikit-learn==1.2.2
 requests
