@@ -1,11 +1,7 @@
-// popup.js
-
 document.addEventListener("DOMContentLoaded", async () => {
   const outputDiv = document.getElementById("output");
-  const API_KEY = 'Your API';  // Replace with your actual YouTube Data API key  
   const API_URL = 'http://localhost:5000/';
   // const API_URL = 'http://23.20.221.231:8080/';
-
   // Get the current tab's URL
   chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
     const url = tabs[0].url;
@@ -127,15 +123,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     let pageToken = "";
     try {
       while (comments.length < 500) {
-        const response = await fetch(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=100&pageToken=${pageToken}&key=${API_KEY}`);
+        const response = await fetch(`http://127.0.0.1:5000/get_comments`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ videoId, pageToken })
+});
         const data = await response.json();
         if (data.items) {
           data.items.forEach(item => {
-            const commentText = item.snippet.topLevelComment.snippet.textOriginal;
-            const timestamp = item.snippet.topLevelComment.snippet.publishedAt;
-            const authorId = item.snippet.topLevelComment.snippet.authorChannelId?.value || 'Unknown';
-            comments.push({ text: commentText, timestamp: timestamp, authorId: authorId });
-          });
+  if (comments.length < 500) {
+    const commentText = item.snippet.topLevelComment.snippet.textOriginal;
+    const timestamp = item.snippet.topLevelComment.snippet.publishedAt;
+    const authorId = item.snippet.topLevelComment.snippet.authorChannelId?.value || 'Unknown';
+
+    comments.push({
+      text: commentText,
+      timestamp: timestamp,
+      authorId: authorId
+    });
+  }
+});
         }
         pageToken = data.nextPageToken;
         if (!pageToken) break;
@@ -147,7 +156,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return comments;
   }
 
-  async function getSentimentPredictions(comments) {
+   async function getSentimentPredictions(comments) {
     try {
       const response = await fetch(`${API_URL}/predict_with_timestamps`, {
         method: "POST",

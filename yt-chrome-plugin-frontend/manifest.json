@@ -3,16 +3,19 @@
   "name": "YouTube Sentiment Insights",
   "version": "1.0",
   "description": "Analyzes YouTube video comments for sentiment.",
+
   "action": {
     "default_popup": "popup.html"
   },
+
   "permissions": [
-  "tabs",
-  "activeTab",
-  "scripting"
-],
-"host_permissions": [
-  "http://localhost/*",
-  "https://www.googleapis.com/*"
-]
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "http://localhost:5000/*",
+    "https://www.googleapis.com/*"
+  ]
 }

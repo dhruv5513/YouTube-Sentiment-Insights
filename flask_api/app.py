@@ -1,3 +1,12 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+
+
+
 import matplotlib
 matplotlib.use('Agg')  # Use non-interactive backend before importing pyplot
 
@@ -323,7 +332,18 @@ def generate_trend_graph():
         app.logger.error(f"Error in /generate_trend_graph: {e}")
         return jsonify({"error": f"Trend graph generation failed: {str(e)}"}), 500
 
+import requests  # agar already nahi hai
 
+@app.route('/get_comments', methods=['POST'])
+def get_comments():
+    data = request.json
+    video_id = data.get("videoId")
+    page_token = data.get("pageToken", "")
+
+    url = f"https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId={video_id}&maxResults=100&pageToken={page_token}&key={API_KEY}"
+
+    response = requests.get(url)
+    return jsonify(response.json())
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
