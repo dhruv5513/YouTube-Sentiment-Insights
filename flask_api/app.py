@@ -340,9 +340,8 @@ import requests  # agar already nahi hai
 def get_comments():
     data = request.json
     video_id = data.get("videoId")
-    page_token = data.get("pageToken", "")
 
-    url = f"https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId={video_id}&maxResults=100&pageToken={page_token}&key={API_KEY}"
+    url = f"https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId={video_id}&maxResults=100&key={API_KEY}"
 
     response = requests.get(url)
     return jsonify(response.json())

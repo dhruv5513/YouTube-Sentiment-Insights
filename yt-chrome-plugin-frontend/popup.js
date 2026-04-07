@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const outputDiv = document.getElementById("output");
-  const API_URL = 'http://localhost:5000/';
+  const API_URL = 'https://youtube-sentiment-insights-1.onrender.com';
   // const API_URL = 'http://23.20.221.231:8080/';
   // Get the current tab's URL
   chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
