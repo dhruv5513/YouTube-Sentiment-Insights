@@ -1,7 +1,3 @@
-import nltk
-nltk.download('stopwords')
-nltk.download('wordnet')
-
 import os
 from dotenv import load_dotenv
 
