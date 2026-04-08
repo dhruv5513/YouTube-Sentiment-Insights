@@ -3,14 +3,12 @@ Flask==3.0.3
 Flask_Cors==5.0.0
 joblib==1.4.2
 lightgbm==4.5.0
-matplotlib==3.9.2
+matplotlib==3.8.4
 nltk==3.9.1
-numpy==1.23.5
+numpy==1.26.4
 pandas==2.2.3
 wordcloud==1.9.3
 seaborn==0.13.2
 -e .
 gunicorn
 python-dotenv
-scikit-learn==1.2.2
-requests
