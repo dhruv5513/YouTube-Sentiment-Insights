@@ -7,8 +7,8 @@ API_KEY = os.getenv("API_KEY")
 
 
 
-import matplotlib
-matplotlib.use('Agg')  # Use non-interactive backend before importing pyplot
+# import matplotlib
+# matplotlib.use('Agg')  # Use non-interactive backend before importing pyplot
 
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
