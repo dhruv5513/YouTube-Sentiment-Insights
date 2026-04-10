@@ -5,6 +5,9 @@ load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 
+# Get the base directory (project root)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 
 import matplotlib
@@ -86,7 +89,12 @@ def load_model(model_path, vectorizer_path):
 
 
 # Initialize the model and vectorizer
-model, vectorizer = load_model("../lgbm_model.pkl", "../tfidf_vectorizer.pkl") 
+# Build absolute paths to model files
+model_path = os.path.join(BASE_DIR, "lgbm_model.pkl")
+vectorizer_path = os.path.join(BASE_DIR, "tfidf_vectorizer.pkl")
+
+# Load the model and vectorizer
+model, vectorizer = load_model(model_path, vectorizer_path)
 
 # Initialize the model and vectorizer
 # model, vectorizer = load_model_and_vectorizer("my_model", "1", "./tfidf_vectorizer.pkl")  # Update paths and versions as needed
@@ -334,17 +342,26 @@ import requests  # agar already nahi hai
 
 @app.route('/get_comments', methods=['POST'])
 def get_comments():
-    data = request.json
-    video_id = data.get("videoId")
-    page_token = data.get("pageToken", "")
+    try:
+        data = request.json
+        video_id = data.get("videoId")
+        page_token = data.get("pageToken", "")
 
-    url = f"https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId={video_id}&maxResults=100&key={API_KEY}"
-    
-    if page_token:
-        url += f"&pageToken={page_token}"
+        url = f"https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId={video_id}&maxResults=100&key={API_KEY}"
+        
+        if page_token:
+            url += f"&pageToken={page_token}"
 
-    response = requests.get(url)
-    return jsonify(response.json())
+        response = requests.get(url, timeout=10)
+        
+        if response.status_code == 200:
+            return jsonify(response.json())
+        else:
+            return jsonify({"error": f"YouTube API returned {response.status_code}"}), response.status_code
+            
+    except Exception as e:
+        app.logger.error(f"Error fetching comments: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':

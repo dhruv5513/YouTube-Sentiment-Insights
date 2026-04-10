@@ -11,14 +11,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (match && match[1]) {
       const videoId = match[1];
       outputDiv.innerHTML = `<div class="section-title">YouTube Video ID</div><p>${videoId}</p><p>Fetching comments...</p>`;
+const comments = await fetchComments(videoId);
 
-      const comments = await fetchComments(videoId);
-      if (comments.length === 0) {
-        outputDiv.innerHTML += "<p>No comments found for this video.</p>";
-        return;
-      }
+if (comments.length === 0) {
+  outputDiv.innerHTML += "<p>No comments found. This video might have comments disabled.</p>";
+  return;
+}
 
-      outputDiv.innerHTML += `<p>Fetched ${comments.length} comments. Performing sentiment analysis...</p>`;
+// Add this logging
+console.log(`Total comments fetched: ${comments.length}`);
+
+outputDiv.innerHTML += `<p>Successfully fetched ${comments.length} comment${comments.length !== 1 ? 's' : ''}. Performing sentiment analysis...</p>`;
       const predictions = await getSentimentPredictions(comments);
 
       if (predictions) {
@@ -121,40 +124,83 @@ document.addEventListener("DOMContentLoaded", async () => {
   async function fetchComments(videoId) {
     let comments = [];
     let pageToken = "";
+    let attempts = 0;
+    const maxAttempts = 10; // Maximum number of API calls (10 × 100 = 1000 comments max)
+    
     try {
-      while (comments.length < 500) {
-        const response = await fetch(`http://localhost:5000/get_comments`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({ videoId, pageToken })
-});
-        const data = await response.json();
-        if (data.items) {
-          data.items.forEach(item => {
-  if (comments.length < 500) {
-    const commentText = item.snippet.topLevelComment.snippet.textOriginal;
-    const timestamp = item.snippet.topLevelComment.snippet.publishedAt;
-    const authorId = item.snippet.topLevelComment.snippet.authorChannelId?.value || 'Unknown';
+      while (comments.length < 500 && attempts < maxAttempts) {
+        attempts++;
+        
+        console.log(`Fetching batch ${attempts}, current count: ${comments.length}`);
+        
+        const response = await fetch(`${API_URL}/get_comments`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ videoId, pageToken })
+        });
 
-    comments.push({
-      text: commentText,
-      timestamp: timestamp,
-      authorId: authorId
-    });
-  }
-});
+        if (!response.ok) {
+          console.error(`API returned ${response.status}`);
+          break;
         }
+
+        const data = await response.json();
+        
+        // Check if there's an error in the response
+        if (data.error) {
+          console.error("API Error:", data.error);
+          break;
+        }
+        
+        if (data.items && data.items.length > 0) {
+          data.items.forEach(item => {
+            if (comments.length < 500) {
+              const commentText = item.snippet.topLevelComment.snippet.textOriginal;
+              const timestamp = item.snippet.topLevelComment.snippet.publishedAt;
+              const authorId = item.snippet.topLevelComment.snippet.authorChannelId?.value || 'Unknown';
+
+              comments.push({
+                text: commentText,
+                timestamp: timestamp,
+                authorId: authorId
+              });
+            }
+          });
+        } else {
+          console.log("No items in response");
+          break;
+        }
+
+        // Update the UI with progress
+        outputDiv.innerHTML = `
+          <div class="section-title">YouTube Video ID</div>
+          <p>${videoId}</p>
+          <p>Fetching comments... (${comments.length} collected so far)</p>
+        `;
+
         pageToken = data.nextPageToken;
-        if (!pageToken) break;
+        
+        if (!pageToken) {
+          console.log("No more pages available");
+          break;
+        }
+
+        // Small delay to avoid rate limiting
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
+      
+      console.log(`Finished fetching. Total comments: ${comments.length}`);
+      
     } catch (error) {
       console.error("Error fetching comments:", error);
-      outputDiv.innerHTML += "<p>Error fetching comments.</p>";
+      outputDiv.innerHTML += `<p>Error fetching comments: ${error.message}</p>`;
     }
+    
     return comments;
   }
+
 
    async function getSentimentPredictions(comments) {
     try {
