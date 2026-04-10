@@ -24,7 +24,7 @@ import matplotlib.dates as mdates
 import pickle
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for Chrome extension
 
 # Define the preprocessing function
 def preprocess_comment(comment):
@@ -336,8 +336,12 @@ import requests  # agar already nahi hai
 def get_comments():
     data = request.json
     video_id = data.get("videoId")
+    page_token = data.get("pageToken", "")
 
     url = f"https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId={video_id}&maxResults=100&key={API_KEY}"
+    
+    if page_token:
+        url += f"&pageToken={page_token}"
 
     response = requests.get(url)
     return jsonify(response.json())
