@@ -197,15 +197,26 @@ def generate_chart():
 
         # Generate the pie chart
         plt.figure(figsize=(6, 6))
-        plt.pie(
+
+        wedges, texts, autotexts = plt.pie(
             sizes,
             labels=labels,
             colors=colors,
             autopct='%1.1f%%',
             startangle=140,
-            textprops={'color': 'w'}
+            textprops={'color': 'black'},  # keep as is
         )
-        plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+        # 🔹 Set label text (category names) → white
+        for text in texts:
+            text.set_color('white')
+
+        # 🔹 Keep percentage text → black (already black, but explicit)
+        for autotext in autotexts:
+            autotext.set_color('black')
+
+        plt.axis('equal')
+        plt.show()  # Equal aspect ratio ensures that pie is drawn as a circle.
 
         # Save the chart to a BytesIO object
         img_io = io.BytesIO()

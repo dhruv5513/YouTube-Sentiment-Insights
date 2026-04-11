@@ -273,27 +273,32 @@ outputDiv.innerHTML += `<p>Successfully fetched ${comments.length} comment${comm
   }
 
   async function fetchAndDisplayTrendGraph(sentimentData) {
-    try {
-      const response = await fetch(`${API_URL}/generate_trend_graph`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sentiment_data: sentimentData })
-      });
-      if (!response.ok) {
-        throw new Error('Failed to fetch trend graph image');
-      }
-      const blob = await response.blob();
-      const imgURL = URL.createObjectURL(blob);
-      const img = document.createElement('img');
-      img.src = imgURL;
-      img.style.width = '100%';
-      img.style.marginTop = '20px';
-      // Append the image to the trend-graph-container div
-      const trendGraphContainer = document.getElementById('trend-graph-container');
-      trendGraphContainer.appendChild(img);
-    } catch (error) {
-      console.error("Error fetching trend graph image:", error);
-      outputDiv.innerHTML += "<p>Error fetching trend graph image.</p>";
+  try {
+    const response = await fetch(`${API_URL}/generate_trend_graph`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sentiment_data: sentimentData })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch trend graph image');
     }
+
+    const blob = await response.blob();
+    const imgURL = URL.createObjectURL(blob);
+
+    const img = document.createElement('img');
+    img.src = imgURL;
+
+    img.style.width = '100%';
+    img.style.marginTop = '20px';
+
+    const trendGraphContainer = document.getElementById('trend-graph-container');
+    trendGraphContainer.appendChild(img);
+
+  } catch (error) {
+    console.error("Error fetching trend graph image:", error);
+    outputDiv.innerHTML += "<p>Error fetching trend graph image.</p>";
   }
+}
 });
