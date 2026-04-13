@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 import matplotlib
-matplotlib.use('Agg')  # Use non-interactive backend before importing pyplot
+matplotlib.use('Agg')  
 
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
@@ -63,7 +63,7 @@ def preprocess_comment(comment):
 # Load the model and vectorizer from the model registry and local storage
 # def load_model_and_vectorizer(model_name, model_version, vectorizer_path):
 #     # Set MLflow tracking URI to your server
-#     mlflow.set_tracking_uri("http://ec2-54-167-108-249.compute-1.amazonaws.com:5000/")  # Replace with your MLflow tracking URI
+#     mlflow.set_tracking_uri("") 
 #     client = MlflowClient()
 #     model_uri = f"models:/{model_name}/{model_version}"
 #     model = mlflow.pyfunc.load_model(model_uri)

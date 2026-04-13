@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const outputDiv = document.getElementById("output");
   const API_URL = "http://localhost:5000/";
   // const API_URL = 'http://23.20.221.231:8080/';
-  // Get the current tab's URL
+  
   chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
     const url = tabs[0].url;
     const youtubeRegex = /^https:\/\/(?:www\.)?youtube\.com\/watch\?v=([\w-]{11})/;
@@ -47,7 +47,7 @@ outputDiv.innerHTML += `<p>Successfully fetched ${comments.length} comment${comm
         // Normalize the average sentiment score to a scale of 0 to 10
         const normalizedSentimentScore = (((parseFloat(avgSentimentScore) + 1) / 2) * 10).toFixed(2);
 
-        // Add the Comment Analysis Summary section
+        // Comment Analysis Summary section
         outputDiv.innerHTML += `
           <div class="section">
             <div class="section-title">Comment Analysis Summary</div>
@@ -72,7 +72,7 @@ outputDiv.innerHTML += `<p>Successfully fetched ${comments.length} comment${comm
           </div>
         `;
 
-        // Add the Sentiment Analysis Results section with a placeholder for the chart
+        // Sentiment Analysis Results section with a placeholder for the chart
         outputDiv.innerHTML += `
           <div class="section">
             <div class="section-title">Sentiment Analysis Results</div>
@@ -83,7 +83,7 @@ outputDiv.innerHTML += `<p>Successfully fetched ${comments.length} comment${comm
         // Fetch and display the pie chart inside the chart-container div
         await fetchAndDisplayChart(sentimentCounts);
 
-        // Add the Sentiment Trend Graph section
+        // Sentiment Trend Graph section
         outputDiv.innerHTML += `
           <div class="section">
             <div class="section-title">Sentiment Trend Over Time</div>
@@ -93,7 +93,7 @@ outputDiv.innerHTML += `<p>Successfully fetched ${comments.length} comment${comm
         // Fetch and display the sentiment trend graph
         await fetchAndDisplayTrendGraph(sentimentData);
 
-        // Add the Word Cloud section
+        // Word Cloud section
         outputDiv.innerHTML += `
           <div class="section">
             <div class="section-title">Comment Wordcloud</div>
@@ -103,7 +103,7 @@ outputDiv.innerHTML += `<p>Successfully fetched ${comments.length} comment${comm
         // Fetch and display the word cloud inside the wordcloud-container div
         await fetchAndDisplayWordCloud(comments.map(comment => comment.text));
 
-        // Add the top comments section
+        // top comments section
         outputDiv.innerHTML += `
           <div class="section">
             <div class="section-title">Top 25 Comments with Sentiments</div>
@@ -125,7 +125,7 @@ outputDiv.innerHTML += `<p>Successfully fetched ${comments.length} comment${comm
     let comments = [];
     let pageToken = "";
     let attempts = 0;
-    const maxAttempts = 10; // Maximum number of API calls (10 × 100 = 1000 comments max)
+    const maxAttempts = 10; 
     
     try {
       while (comments.length < 500 && attempts < maxAttempts) {
@@ -148,7 +148,7 @@ outputDiv.innerHTML += `<p>Successfully fetched ${comments.length} comment${comm
 
         const data = await response.json();
         
-        // Check if there's an error in the response
+        
         if (data.error) {
           console.error("API Error:", data.error);
           break;
